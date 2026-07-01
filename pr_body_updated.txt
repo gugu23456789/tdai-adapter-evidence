@@ -1,0 +1,60 @@
+## Description
+
+Unified adapter SDK for TencentDB Agent Memory v2 Gateway API.
+
+### Python SDK (bridge_adapter/)
+
+- `TdaiAdapter` ABC — abstract base class for all platform adapters
+- `BridgeAdapter` — example Python platform implementation (httpx-based)
+- `BufferedAdapter` — optional local JSONL buffer mixin
+- `TdaiHttpClient` — httpx wrapper for 7 Gateway REST endpoints
+- `HermesV2Adapter` — cross-platform reference implementation
+- Structured error types: TdaiConnectionError, TdaiAuthError, TdaiTimeoutError, TdaiRateLimitError, TdaiValidationError
+- Exponential backoff retry (3 attempts, 0.5s base + jitter)
+- Middleware hooks (before_call / after_call / on_error)
+- `TdaiAdapterRegistry` with `health_all()` aggregation
+- SHA256SUMS integrity verification
+
+### TypeScript (src/core/types.ts)
+
+- `MemoryAdapter` interface — TypeScript counterpart of Python `TdaiAdapter`
+- Same contract: recall / capture / searchMemory / searchConversation
+- 19 red-team tests covering interface contract, parameter bounds, lifecycle, concurrency
+
+### Architecture
+
+```
+Any Platform → TdaiAdapter (ABC)
+  ├── BridgeAdapter   (Python reference implementation)
+  ├── HermesV2Adapter (Python, SDK-based)
+  └── MemoryAdapter   (TypeScript interface, npm)
+
+TdaiAdapter.recall(query, limit):
+  1. _sanitize_query() / _sanitize_limit()
+  2. middleware.before_call()
+  3. _with_retry() → _recall_impl()
+  4. middleware.after_call()
+  5. graceful degradation on failure
+```
+
+### Docs
+
+- `docs/platform-adapter-comparison.md` — 4-platform matrix (OpenClaw / Hermes / MCP / Bridge) + unified SDK adoption guide
+- `bridge_adapter/README.md` — quick start, architecture diagram, deployment modes (local/cloud/multi-tenant)
+
+### Tests
+
+| Suite | Tests | Scope |
+|:---|:---:|:---|
+| Bridge integration | 353 | engine hooks, memory layer, TDAI wiring |
+| BridgeAdapter provider | 20 | recall/capture/search, graceful degradation |
+| SDK red-team | 37 | registry, bounds, concurrency, ABC, buffering |
+| TS MemoryAdapter | 19 | contract, bounds, lifecycle, concurrency |
+| **Total** | **429** | **100% passed** |
+
+### Evidence
+
+Test logs and architecture diagrams:
+https://github.com/gugu23456789/tdai-adapter-evidence
+
+Closes #235
