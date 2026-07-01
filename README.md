@@ -9,7 +9,29 @@ Test results for `bridge_adapter` module submission (PR for issue #235).
 | Bridge integration tests | 353 | 353 ✅ | engine.py hooks, memory layer, TDAI wiring, session recall |
 | BridgeAdapter provider tests | 20 | 20 ✅ | recall/capture/search, graceful degradation, health check |
 | TDAI SDK red team tests | 37 | 37 ✅ | registry, parameter bounds, concurrency, ABC enforcement, buffering |
-| **Total** | **410** | **410** | **100%** |
+| TypeScript MemoryAdapter | 19 | 19 ✅ | interface contract, bounds, lifecycle, concurrency |
+| **Total** | **429** | **429** | **100%** |
+
+## CI Status (Fork Actions)
+
+6/6 jobs passing: https://github.com/gugu23456789/TencentDB-Agent-Memory/actions/runs/28502102262
+
+| Job | Result |
+|:---|---:|
+| Test TS (19 MemoryAdapter) | ✅ |
+| Test Python (import + SHA256) | ✅ |
+| Install | ✅ |
+| Pack (npm build) | ✅ |
+| Manifest | ✅ |
+| Size Guard | ✅ |
+
+## Related Issues
+
+- **#120 prompt cache degradation**: Analysis in `issue_120_comment.json`. Session-level recall cache added to TdaiAdapter (SHA256 query → cached result). Root cause: `prependContext` injected every turn breaks prefix-matching caches. Mitigation: cache prevents re-fetching same recall query within session.
+
+## PR Body
+
+- `pr_body_updated.txt` — PR #339 description with `Closes #235`
 
 ## Test Log Files
 
