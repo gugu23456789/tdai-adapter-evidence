@@ -27,7 +27,10 @@ Test results for `bridge_adapter` module submission (PR for issue #235).
 
 ## Related Issues
 
-- **#120 prompt cache degradation**: Analysis in `issue_120_comment.json`. Session-level recall cache added to TdaiAdapter (SHA256 query → cached result). Root cause: `prependContext` injected every turn breaks prefix-matching caches. Mitigation: cache prevents re-fetching same recall query within session.
+- **#120 prompt cache degradation**: Session-level recall cache added to `TdaiAdapter` (SHA256 query → cached result, `base.py:285-298`). Mitigation: same query within session returns cached `prepend_context` without re-fetching from Gateway. Root cause: `prependContext` injected at user message start every turn breaks prefix-matching caches (DeepSeek, MiMo). Full fix (move injection to message end) belongs in OpenClaw plugin layer, not SDK.
+
+  **Reference — Reasonix `PrefixShape` pattern** (v1.13.1, `internal/agent/cache_shape.go`):
+  Reasonix tracks `SystemHash + ToolsHash + PrefixHash` per turn and compares across turns to explain cache misses. If TDAI adopted similar diagnostics, it could report: *"cache miss: system=✓ tools=✓ prefix=✗ (L1 memories changed)"* — giving maintainers exact evidence instead of speculation.
 
 ## PR Body
 
