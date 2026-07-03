@@ -1,0 +1,53 @@
+# Bridge adapter branch  commit history
+
+
+Commit: 0269343eb58493fc4b2644a21b1d32e4491e2e7e
+Date: 2026-07-03T01:55:13Z
+Author: Pujunhan
+Message: fix: wrap ??+&& expression in parentheses to satisfy oxc parser
+---
+Commit: a2c1e4d4052e7b6e1da3b2fd7d4cc43ea70216f2
+Date: 2026-07-03T01:52:05Z
+Author: Pujunhan
+Message: feat(ts): add TdaiHttpClient tests (11 tests, mock fetch), extend CI, update docs with TS SDK components
+---
+Commit: fb6052626470f15f8e2e36c48b21b3dc20a874f4
+Date: 2026-07-03T01:48:15Z
+Author: Pujunhan
+Message: feat(ts): add TdaiHttpClient, BaseMemoryAdapter (retry+middleware+degradation), extend MemoryAdapter with mcpHealth/syncProfile
+---
+Commit: 60aab6533e3c2f58579cfd9c0f288e237b1d3e76
+Date: 2026-07-03T01:12:05Z
+Author: Pujunhan
+Message: docs: add CodeBuddy CLI/IDE and Trae IDE MCP config examples to INTEGRATION.md
+---
+Commit: 2fee417ad2a7337491753df40e1fb812a4ee6925
+Date: 2026-07-03T00:52:17Z
+Author: Pujunhan
+Message: docs: add MCP client config examples (Codex CLI, Claude Code) to INTEGRATION.md
+---
+Commit: ef9a6555301b231df19fb7408d7e931bd9e979ef
+Date: 2026-07-03T00:47:39Z
+Author: Pujunhan
+Message: revert: remove CodexAdapter (requires ChatGPT subscription)
+---
+Commit: a16b7e1a6e814620a013df053222264ce9f15e13
+Date: 2026-07-03T00:47:10Z
+Author: Pujunhan
+Message: revert: remove CodexAdapter (requires ChatGPT subscription, violates platform-neutrality)
+---
+Commit: e3637c6d697fc528b94c65edd255e817bbbfb3ec
+Date: 2026-07-03T00:38:05Z
+Author: Pujunhan
+Message: fix: update SHA256SUMS for codex_adapter.py, test_codex_adapter.py, __init__.py, README.md
+---
+Commit: 93e53855be63d69a58198d1ee649aa70800b0f9d
+Date: 2026-07-03T00:36:12Z
+Author: Pujunhan
+Message: docs,test: add CodexAdapter test suite (11 tests) and README documentation
+---
+Commit: be90e368800c2cfa14a9462326a68cb060d074d1
+Date: 2026-07-03T00:32:42Z
+Author: Pujunhan
+Message: feat: add CodexAdapter  wraps Codex built-in memories via MCP stdio
+---

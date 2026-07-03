@@ -1,60 +1,99 @@
-## Description
+## Summary
 
-Unified adapter SDK for TencentDB Agent Memory v2 Gateway API.
+**One engine, three entry points**  this PR implements a unified access layer for TDAI Memory Gateway v2:
 
-### Python SDK (bridge_adapter/)
+| Entry Point | Implementation | Use Case |
+|:---|---|:---|
+| **Python SDK** | `TdaiAdapter` ABC + `BridgeAdapter` | Python-native agent frameworks |
+| **TypeScript SDK** | `MemoryAdapter` interface + `BaseMemoryAdapter` + `TdaiHttpClient` | TypeScript agent frameworks |
+| **MCP stdio** | JSON-RPC 2.0 server (5 tools, 5 defense gates) | Any MCP-compliant agent platform |
 
-- `TdaiAdapter` ABC — abstract base class for all platform adapters
-- `BridgeAdapter` — example Python platform implementation (httpx-based)
-- `BufferedAdapter` — optional local JSONL buffer mixin
-- `TdaiHttpClient` — httpx wrapper for 7 Gateway REST endpoints
-- `HermesV2Adapter` — cross-platform reference implementation
-- Structured error types: TdaiConnectionError, TdaiAuthError, TdaiTimeoutError, TdaiRateLimitError, TdaiValidationError
-- Exponential backoff retry (3 attempts, 0.5s base + jitter)
-- Middleware hooks (before_call / after_call / on_error)
-- `TdaiAdapterRegistry` with `health_all()` aggregation
-- SHA256SUMS integrity verification
+All three share the same abstract contract (recall/capture/search) and the same backend (TDAI Gateway). The MCP layer also serves as the integration point for platforms that don't have a native SDK  Codex CLI, Claude Code, CodeBuddy, Trae IDE, Cursor, etc. connect with a single line of config.
 
-### TypeScript (src/core/types.ts)
+With MCP gaining traction as an open standard for agent-tool interaction, this PR positions TDAI to be natively accessible from any MCP-compliant platform without per-platform adapter code.
 
-- `MemoryAdapter` interface — TypeScript counterpart of Python `TdaiAdapter`
-- Same contract: recall / capture / searchMemory / searchConversation
-- 19 red-team tests covering interface contract, parameter bounds, lifecycle, concurrency
+## Usage
 
-### Architecture
-
-```
-Any Platform → TdaiAdapter (ABC)
-  ├── BridgeAdapter   (Python reference implementation)
-  ├── HermesV2Adapter (Python, SDK-based)
-  └── MemoryAdapter   (TypeScript interface, npm)
-
-TdaiAdapter.recall(query, limit):
-  1. _sanitize_query() / _sanitize_limit()
-  2. middleware.before_call()
-  3. _with_retry() → _recall_impl()
-  4. middleware.after_call()
-  5. graceful degradation on failure
+### Python SDK
+```python
+from bridge_adapter import TdaiAdapterRegistry
+adapter = TdaiAdapterRegistry.create("bridge")
+ctx = await adapter.recall("user preferences")
 ```
 
-### Docs
+### TypeScript SDK
+```typescript
+import { TdaiHttpClient } from "./tdai-http-client";
+const client = new TdaiHttpClient({ apiKey: process.env.TDAI_API_KEY });
+const health = await client.health();
+```
 
-- `docs/platform-adapter-comparison.md` — 4-platform matrix (OpenClaw / Hermes / MCP / Bridge) + unified SDK adoption guide
-- `bridge_adapter/README.md` — quick start, architecture diagram, deployment modes (local/cloud/multi-tenant)
+### MCP stdio (any MCP-compliant client)
+```toml
+# ~/.codex/config.toml
+[mcp_servers.tdai_memory]
+command = "python"
+args = ["-m", "bridge.mcp.server"]
+```
 
-### Tests
+Then the agent calls `tdai_recall`, `tdai_capture`, etc. as native MCP tools.
 
-| Suite | Tests | Scope |
-|:---|:---:|:---|
-| Bridge integration | 353 | engine hooks, memory layer, TDAI wiring |
-| BridgeAdapter provider | 20 | recall/capture/search, graceful degradation |
-| SDK red-team | 37 | registry, bounds, concurrency, ABC, buffering |
-| TS MemoryAdapter | 19 | contract, bounds, lifecycle, concurrency |
-| **Total** | **429** | **100% passed** |
+## Deliverables
 
-### Evidence
+### Python SDK (`bridge_adapter/`)
+| Component | Location |
+|:---|---:|
+| **TdaiAdapter ABC**  abstract base class with retry, middleware, recall cache, graceful degradation | `bridge_adapter/base.py` |
+| **BridgeAdapter**  httpx  Gateway (7 endpoints, retry, structured errors) | `bridge_adapter/client.py` |
+| **UnifiedErr**  7 typed error classes, exponential backoff retry | `bridge_adapter/errors.py` |
+| **TdaiMiddleware** system  before/after/onError hooks, metrics | `bridge_adapter/base.py` |
+| **TdaiAdapterRegistry**  `create("bridge" or "hermes_v2"), list()` | `bridge_adapter/__init__.py` |
+| **BufferedAdapter**  dedup + compaction wrapper | `bridge_adapter/buffered.py` |
+| **HermesV2Adapter**  hermes-v2 chat-completion proxy | `bridge_adapter/hermes_v2.py` |
+| **Config loader**  JSON/TOML/env chain | `bridge_adapter/config.py` |
 
-Test logs and architecture diagrams:
-https://github.com/gugu23456789/tdai-adapter-evidence
+### TypeScript SDK (`src/core/`)
+| Component | Location |
+|:---|---:|
+| **MemoryAdapter interface** | `src/core/types.ts` |
+| **BaseMemoryAdapter**  retry + middleware + recall cache + graceful degradation | `src/core/base-memory-adapter.ts` |
+| **TdaiHttpClient**  8 Gateway endpoints, 7 typed errors, env-var defaults | `src/core/tdai-http-client.ts` |
+| **Tests** | `src/core/memory-adapter.test.ts` (19) + `src/core/tdai-http-client.test.ts` (10) |
 
-Closes #235
+### MCP stdio Transport Layer (`bridge/mcp/`)
+| Component | Location |
+|:---|---:|
+| **MCP stdio server**  5 tools, pure JSON-RPC 2.0, zero framework dep | `bridge/mcp/server.py` |
+| **5-layer defense gates**  G0 JSON-RPC  G1 API Key  G2 rate-limit  G3 circuit breaker  G4 audit | `bridge/mcp/server.py` |
+| **Graceful fallback**  server.py   bridge/mcp_health.py (1 tool, 4 gates, independent process) | `bridge/mcp_health.py` |
+| **TS MCP client**  StdioClientTransport, inherits server-side gates | `bridge/mcp/tdai-memory-client.ts` |
+| **Tests**  protocol compliance: 14 + red-team: 13 | `bridge/mcp/tests/test_protocol.py` + `test_redteam.py` |
+
+### Test Summary
+| Suite | Location | Count |
+|:---|---:|---:|
+| MCP protocol compliance | `bridge/mcp/tests/test_protocol.py` | 14 |
+| MCP red-team | `bridge/mcp/tests/test_redteam.py` | 13 |
+| TS MemoryAdapter | `src/core/memory-adapter.test.ts` | 19 |
+| TS TdaiHttpClient | `src/core/tdai-http-client.test.ts` | 10 |
+| **PR-submitted total** | | **56** |
+
+### Documentation
+| File | Contents |
+|:---|---:|
+| `bridge/mcp/INTEGRATION.md` | Multi-platform MCP config + fallback chain |
+| `bridge/mcp/REDTEAM_FINDINGS.md` | Red-team assessment (paper-supplement style) |
+| `docs/tdai-adapter-architecture.md` | SDK architecture + cross-language design |
+| `docs/platform-adapter-comparison.md` | 5-column adapter matrix including this PR |
+
+### Key Design Decisions
+1. **ABC over concrete**  Subclasses implement only 4 `_impl` methods; the base class provides retry, middleware, caching, and graceful degradation for free.
+2. **MCP over per-platform adapters**  One stdio server replaces N platform-specific adapters. Any MCP client connects with one config line.
+3. **Defense gates always active**  G0G4 run on every request regardless of transport.
+4. **Zero MCP framework dependency**  Pure JSON-RPC 2.0, no supply-chain risk from SDK deps.
+5. **Graceful degradation at every layer**  MCP fallback  SDK safe defaults  return.
+6. **Dual-language parity**  Python ABC and TypeScript interface+client share equivalent abstractions and error semantics.
+
+### CI Verification
+- Total: 6/6 jobs  (Install, Test TS 30, Test Python, Pack, Manifest, Size Guard)
+- CI: https://github.com/gugu23456789/TencentDB-Agent-Memory/actions
