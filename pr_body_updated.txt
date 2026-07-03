@@ -163,6 +163,18 @@ Closes #235
 
 ---
 
+### Progress
+
+- [x] Python SDK (bridge_adapter) — TdaiAdapter ABC + HermesV2Adapter + BridgeAdapter
+- [x] TypeScript SDK — TdaiAdapter interface + tdai-http-client
+- [x] MCP stdio server with defense gates (G0-G4)
+- [x] Dual-path config (local mode + multi-tenant mode)
+- [x] CI encoding defense — 5-layer mojibake prevention (L1+L5)
+- [x] Cross-language SDK parity (Python ABC <-> TS interface)
+- [x] SHA256 integrity verification + CI gate
+- [x] Node 24 upgrade (was 22)
+- [ ] Awaiting upstream review
+
 ## CI Status (final)
 
 **Latest**: `860f225e` — 8/8 jobs passing
