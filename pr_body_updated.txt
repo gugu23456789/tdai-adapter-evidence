@@ -12,7 +12,66 @@ All three share the same abstract contract (recall/capture/search) and the same 
 
 With MCP gaining traction as an open standard for agent-tool interaction, this PR positions TDAI to be natively accessible from any MCP-compliant platform without per-platform adapter code.
 
-## Usage
+
+## Configuration: Local vs Multi-Tenant
+
+All three entry points share the same `TDAI_*` environment variables.
+Set them once; all three consume them.
+
+### Path A: Local Mode (Zero Config)
+```bash
+# Start the MCP server with defaults:
+#   endpoint: http://127.0.0.1:8420
+#   api key:  empty (loopback, no auth required)
+#   service:  mem-rkgqhd5z (single shared DB)
+python -m bridge.mcp.server
+```
+
+```python
+# Python SDK - same defaults
+from bridge_adapter import TdaiAdapterRegistry
+adapter = TdaiAdapterRegistry.create("bridge")
+```
+```typescript
+// TypeScript SDK - same defaults
+import { TdaiHttpClient } from "./tdai-http-client";
+const client = new TdaiHttpClient();
+```
+
+### Path B: Multi-Tenant Mode (Per-Project Isolation)
+```bash
+# Each project gets its own SQLite database on the same Gateway
+TDAI_SERVICE_ID=repo-spz-gatekeeper python -m bridge.mcp.server
+TDAI_SERVICE_ID=repo-bridge-core    python -m bridge.mcp.server
+TDAI_SERVICE_ID=repo-zthl-research  python -m bridge.mcp.server
+```
+
+```python
+# Python SDK - explicit service_id
+cfg = TdaiConfig.from_env()  # reads TDAI_SERVICE_ID
+adapter = BridgeAdapter(config=cfg)
+```
+```typescript
+// TypeScript SDK - explicit service_id
+const client = new TdaiHttpClient({ serviceId: "my-project" });
+```
+
+### Path C: Remote Gateway (Cloud)
+```bash
+TDAI_ENDPOINT=https://cloud.example.com:8420 \
+TDAI_API_KEY=sk-your-key \
+TDAI_SERVICE_ID=my-project \
+python -m bridge.mcp.server
+```
+
+### API Key Resolution
+The MCP server resolves keys in this order:
+1. `MCP_BRIDGE_API_KEY` (MCP-specific override)
+2. `TDAI_API_KEY` (shared SDK key)
+3. Empty string -> loopback mode (local only)
+
+Tested by `test_config.py` (7 tests) and `test_dual_path.py` (4 tests).
+
 
 ### Python SDK
 ```python
@@ -76,7 +135,7 @@ Then the agent calls `tdai_recall`, `tdai_capture`, etc. as native MCP tools.
 | MCP red-team | `bridge/mcp/tests/test_redteam.py` | 13 |
 | TS MemoryAdapter | `src/core/memory-adapter.test.ts` | 19 |
 | TS TdaiHttpClient | `src/core/tdai-http-client.test.ts` | 10 |
-| **PR-submitted total** | | **56** |
+| **PR-submitted total** | | **63** |
 
 ### Documentation
 | File | Contents |
@@ -97,3 +156,7 @@ Then the agent calls `tdai_recall`, `tdai_capture`, etc. as native MCP tools.
 ### CI Verification
 - Total: 6/6 jobs  (Install, Test TS 30, Test Python, Pack, Manifest, Size Guard)
 - CI: https://github.com/gugu23456789/TencentDB-Agent-Memory/actions
+
+Evidence: https://github.com/gugu23456789/tdai-adapter-evidence (test logs, PR data, commit history)
+
+Closes #235

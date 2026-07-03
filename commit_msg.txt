@@ -1,53 +1,52 @@
-# Bridge adapter branch  commit history
-
-
-Commit: 0269343eb58493fc4b2644a21b1d32e4491e2e7e
-Date: 2026-07-03T01:55:13Z
-Author: Pujunhan
-Message: fix: wrap ??+&& expression in parentheses to satisfy oxc parser
----
-Commit: a2c1e4d4052e7b6e1da3b2fd7d4cc43ea70216f2
-Date: 2026-07-03T01:52:05Z
-Author: Pujunhan
-Message: feat(ts): add TdaiHttpClient tests (11 tests, mock fetch), extend CI, update docs with TS SDK components
----
-Commit: fb6052626470f15f8e2e36c48b21b3dc20a874f4
-Date: 2026-07-03T01:48:15Z
-Author: Pujunhan
-Message: feat(ts): add TdaiHttpClient, BaseMemoryAdapter (retry+middleware+degradation), extend MemoryAdapter with mcpHealth/syncProfile
----
-Commit: 60aab6533e3c2f58579cfd9c0f288e237b1d3e76
-Date: 2026-07-03T01:12:05Z
-Author: Pujunhan
-Message: docs: add CodeBuddy CLI/IDE and Trae IDE MCP config examples to INTEGRATION.md
----
-Commit: 2fee417ad2a7337491753df40e1fb812a4ee6925
-Date: 2026-07-03T00:52:17Z
-Author: Pujunhan
-Message: docs: add MCP client config examples (Codex CLI, Claude Code) to INTEGRATION.md
----
-Commit: ef9a6555301b231df19fb7408d7e931bd9e979ef
-Date: 2026-07-03T00:47:39Z
-Author: Pujunhan
-Message: revert: remove CodexAdapter (requires ChatGPT subscription)
----
-Commit: a16b7e1a6e814620a013df053222264ce9f15e13
-Date: 2026-07-03T00:47:10Z
-Author: Pujunhan
-Message: revert: remove CodexAdapter (requires ChatGPT subscription, violates platform-neutrality)
----
-Commit: e3637c6d697fc528b94c65edd255e817bbbfb3ec
-Date: 2026-07-03T00:38:05Z
-Author: Pujunhan
-Message: fix: update SHA256SUMS for codex_adapter.py, test_codex_adapter.py, __init__.py, README.md
----
-Commit: 93e53855be63d69a58198d1ee649aa70800b0f9d
-Date: 2026-07-03T00:36:12Z
-Author: Pujunhan
-Message: docs,test: add CodexAdapter test suite (11 tests) and README documentation
----
-Commit: be90e368800c2cfa14a9462326a68cb060d074d1
-Date: 2026-07-03T00:32:42Z
-Author: Pujunhan
-Message: feat: add CodexAdapter  wraps Codex built-in memories via MCP stdio
----
+Commit log for PR #339 (bridge-adapter branch)
+============================================================
+2d49a86f  2026-07-02 15:00:45  Pujunhan: docs(mcp): red-team assessment (paper-supplement style)
+9ccf7b7b  2026-07-02 15:01:10  Pujunhan: feat(mcp): MCP stdio server with 5 tools and 4 defense gates
+44c2a238  2026-07-02 15:01:11  Pujunhan: feat(mcp): TypeScript MCP client (~30 lines)
+849a1d68  2026-07-02 15:01:13  Pujunhan: feat(mcp): 14 protocol compliance tests (initialize/tools_list/tools_call/errors)
+07b1aa9c  2026-07-02 15:01:15  Pujunhan: feat(mcp): 13 red-team boundary tests (injection/stress/limits)
+8952f984  2026-07-02 15:03:59  Pujunhan: docs(mcp): add MCP transport layer to architecture doc
+09159631  2026-07-02 15:04:24  Pujunhan: docs(mcp): add MCP transport row to platform comparison
+42cdb0c2  2026-07-02 15:06:24  Pujunhan: fix(mcp): TS client env type - use Record<string,string|undefined> instead of spread
+f76d860d  2026-07-02 15:08:56  Pujunhan: fix(mcp): TS client env type - Record<string,string> with optional pass
+23ad3fb0  2026-07-02 15:57:00  Pujunhan: docs: update MCP transport layer documentation for tdai-adapter-architecture and platform-adapter-comparison
+fa13c539  2026-07-02 23:04:48  Pujunhan: docs: add graceful fallback chain (server.py -> mcp_health.py) to INTEGRATION.md, tdai-adapter-architecture, platform-adapter-comparison
+f6c6e1c4  2026-07-02 23:10:01  Pujunhan: feat: add bridge/mcp_health.py as graceful fallback for MCP stdio server (health-only, 4 gates)
+be90e368  2026-07-03 00:32:42  Pujunhan: feat: add CodexAdapter  wraps Codex built-in memories via MCP stdio
+93e53855  2026-07-03 00:36:12  Pujunhan: docs,test: add CodexAdapter test suite (11 tests) and README documentation
+e3637c6d  2026-07-03 00:38:05  Pujunhan: fix: update SHA256SUMS for codex_adapter.py, test_codex_adapter.py, __init__.py, README.md
+a16b7e1a  2026-07-03 00:47:10  Pujunhan: revert: remove CodexAdapter (requires ChatGPT subscription, violates platform-neutrality)
+ef9a6555  2026-07-03 00:47:39  Pujunhan: revert: remove CodexAdapter (requires ChatGPT subscription)
+2fee417a  2026-07-03 00:52:17  Pujunhan: docs: add MCP client config examples (Codex CLI, Claude Code) to INTEGRATION.md
+60aab653  2026-07-03 01:12:05  Pujunhan: docs: add CodeBuddy CLI/IDE and Trae IDE MCP config examples to INTEGRATION.md
+fb605262  2026-07-03 01:48:15  Pujunhan: feat(ts): add TdaiHttpClient, BaseMemoryAdapter (retry+middleware+degradation), extend MemoryAdapter with mcpHealth/syncProfile
+a2c1e4d4  2026-07-03 01:52:05  Pujunhan: feat(ts): add TdaiHttpClient tests (11 tests, mock fetch), extend CI, update docs with TS SDK components
+0269343e  2026-07-03 01:55:13  Pujunhan: fix: wrap ??+&& expression in parentheses to satisfy oxc parser
+2173c775  2026-07-03 02:32:32  Pujunhan: docs: expand platform adapter comparison to include PR #323 and PR #359
+ff3bce94  2026-07-03 02:45:16  Pujunhan: docs: update README TS SDK table (BaseMemoryAdapter+TdaiHttpClient 29 tests), clean SHA256SUMS of deleted codex_adapter
+83acbc96  2026-07-03 08:10:29  Pujunhan: fix: unify three-entry config namespace - MCP_BRIDGE_API_KEY falls back to TDAI_API_KEY, add config docs + 7 tests
+f8375968  2026-07-03 08:19:27  Pujunhan: fix: correct SHA256SUMS hashes for __init__.py and README.md
+4bdf9dba  2026-07-03 08:32:08  Pujunhan: feat: add dual-path config tests (local mode + multi-tenant mode, 4 tests)
+ac5662e7  2026-07-03 08:36:20  Pujunhan: ci: bump node from 22 to 24, removing Node 20 deprecation warning
+e91284c0  2026-07-03 08:49:13  Pujunhan: docs: add Local vs Multi-Tenant configuration section to architecture doc
+a6a1d134  2026-07-03 09:01:07  Pujunhan: fix: replace Unicode arrows/boxes with ASCII in comparison doc (garbled text fix)
+8d46f43d  2026-07-03 09:30:02  Pujunhan: fix: strip mojibake from 3 doc files only (code files untouched)
+2e3c375e  2026-07-03 09:31:57  Pujunhan: fix: update SHA256SUMS for cleaned README.md
+d2d353f9  2026-07-03 09:35:58  Pujunhan: fix: replace mojibake ? marks with hyphens in 3 docs + update SHA256SUMS
+cd4180fa  2026-07-03 09:43:41  Pujunhan: fix: replace corrupted CJK mojibake bytes in docstrings/comments (15 files)
+6d816b51  2026-07-03 09:52:25  Pujunhan: ci: add mojibake detection job for .py and .ts files
+e4fb0c18  2026-07-03 09:55:44  Pujunhan: fix: replace ALL remaining CJK mojibake chars with ASCII in 11 files
+8ec1c5e3  2026-07-03 09:57:47  Pujunhan: ci: expand mojibake detection to ALL non-ASCII, skip hermes-plugin
+9216b040  2026-07-03 09:59:14  Pujunhan: fix: restore box-drawing chars, only fix REAL CJK mojibake (U+4E00-U+9FFF)
+4f86f838  2026-07-03 10:05:04  Pujunhan: fix: replace corrupted docstrings with clean ASCII in server.py and mcp_health.py
+1ab2e79d  2026-07-03 10:07:01  Pujunhan: fix: replace corrupted docstrings with clean ASCII in server.py and mcp_health.py
+558dc73a  2026-07-03 10:11:00  Pujunhan: fix: CJK mojibake cleanup on all remaining files
+5cc55aaf  2026-07-03 10:16:27  Pujunhan: fix: update SHA256SUMS after CJK cleanup
+6e861288  2026-07-03 10:18:02  Pujunhan: fix: revert src/ CJK damage, keep bridge/ + bridge_adapter/ fixes
+28eda553  2026-07-03 10:21:05  Pujunhan: fix: byte-level non-ASCII cleanup on bridge/ bridge_adapter/ docs/ CI
+e67d8077  2026-07-03 10:21:22  Pujunhan: fix: update SHA256SUMS after byte-level cleanup
+acd1d0b2  2026-07-03 10:28:53  Pujunhan: ci: scope Mojibake Check to bridge/ bridge_adapter/ docs/ .github/
+c0acc6c2  2026-07-03 10:33:06  Pujunhan: ci: remove .yml from Mojibake Check scope (self-fix)
+58d81d7e  2026-07-03 10:43:59  Pujunhan: feat: add 5-layer encoding defense (BOM script + CI L1+L5 check)
+90926d4a  2026-07-03 10:47:22  Pujunhan: ci: scope BOM check to scripts/*.ps1 only
+860f225e  2026-07-03 10:49:40  Pujunhan: fix: add BOM to hardening script (L1 compliance)
