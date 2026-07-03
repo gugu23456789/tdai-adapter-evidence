@@ -1,0 +1,13 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.5, pytest-8.3.2, pluggy-1.6.0 -- C:\Users\HP\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\HP\.codex\bridge
+plugins: anyio-4.10.0, dash-3.2.0, jaxtyping-0.2.25, typeguard-2.13.3
+collecting ... collected 4 items
+
+bridge/mcp/tests/test_dual_path.py::test_local_mode_mcp_server PASSED    [ 25%]
+bridge/mcp/tests/test_dual_path.py::test_multi_tenant_mcp_server PASSED  [ 50%]
+bridge/mcp/tests/test_dual_path.py::test_mcp_bridge_api_key_override PASSED [ 75%]
+bridge/mcp/tests/test_dual_path.py::test_dual_path_demo PASSED           [100%]
+
+============================== 4 passed in 0.10s ==============================

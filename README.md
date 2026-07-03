@@ -24,9 +24,10 @@ Evidence repo: https://github.com/gugu23456789/tdai-adapter-evidence
 | MCP protocol compliance | `bridge/mcp/tests/test_protocol.py` | 14 | JSON-RPC 2.0 spec, tool routing, error codes |
 | MCP red-team | `bridge/mcp/tests/test_redteam.py` | 13 | injection, auth bypass, rate-limit, circuit breaker |
 | MCP config (env-var fallback) | `bridge/mcp/tests/test_config.py` | 7 | API Key resolution, TDAI_* inheritance, loopback mode |
+| MCP dual-path (local + multi-tenant) | `bridge/mcp/tests/test_dual_path.py` | 4 | local mode, multi-tenant mode, API key override, startup demo |
 | TS MemoryAdapter | `src/core/memory-adapter.test.ts` | 19 | interface contract, bounds, lifecycle, concurrency |
 | TS TdaiHttpClient | `src/core/tdai-http-client.test.ts` | 10 | 8 endpoints, 7 error types, env-var defaults |
-| **PR-submitted total** | | **63** | |
+| **PR-submitted total** | | **67** | |
 
 ### Bridge Internal Tests (local, not in fork)
 Local Bridge tests that exercise the SDK through the Bridge engine - these exist in the `.codex` repository, not in the TDAI fork.
@@ -44,12 +45,14 @@ Local Bridge tests that exercise the SDK through the Bridge engine - these exist
 
 | Job | Result |
 |:---|---:|
-| Test TS (30 tests) | OK |
-| Test Python (import + SHA256 + config tests) | OK |
+| Test TS (29 tests) | OK |
+| Test Python (import + SHA256) | OK |
 | Install | OK |
 | Pack (npm build) | OK |
 | Manifest | OK |
 | Size Guard | OK |
+
+Node: 24 (upgraded from 22, CI warning-free)
 
 ## MCP Defense Gates (G0-G4)
 
@@ -140,6 +143,7 @@ See `test_config.py` (7 tests) for the fallback chain verification.
 | `test_provider.log` | 20 provider tests (BridgeAdapter full cycle) |
 | `test_redteam.log` | 37 SDK red team tests (security + edge cases + concurrency) |
 | `test_config-run.log` | 7 MCP config tests (env-var fallback, loopback, inheritance) |
+| `test_dual_path-run.log` | 4 MCP dual-path tests (local mode, multi-tenant, API key override) |
 
 ## Gateway Health
 
