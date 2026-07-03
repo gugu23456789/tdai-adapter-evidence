@@ -160,3 +160,23 @@ Then the agent calls `tdai_recall`, `tdai_capture`, etc. as native MCP tools.
 Evidence: https://github.com/gugu23456789/tdai-adapter-evidence (test logs, PR data, commit history)
 
 Closes #235
+
+---
+
+## CI Status (updated 2026-07-03)
+
+| # | Commit | Result | Key Jobs |
+|:---:|:---|:---:|:---|
+| 1 | `860f225e` | success | Test TS=OK, Test Python=OK |
+| 2 | `90926d4a` | failure | Test TS=OK, Test Python=OK |
+| 3 | `58d81d7e` | failure | Test TS=OK, Test Python=OK |
+| 4 | `c0acc6c2` | success | Test TS=OK, Test Python=OK, Mojibake Check=OK |
+| 5 | `acd1d0b2` | failure | Test TS=OK, Test Python=OK, Mojibake Check=FAIL |
+| 6 | `e67d8077` | failure | Test TS=OK, Test Python=OK, Mojibake Check=FAIL |
+| 7 | `28eda553` | cancelled | Test TS=canc, Test Python=FAIL, Mojibake Check=FAIL |
+| 8 | `6e861288` | failure | Test TS=OK, Test Python=OK, Mojibake Check=FAIL |
+| 9 | `5cc55aaf` | failure | Test TS=OK, Test Python=OK, Mojibake Check=FAIL |
+| 10 | `558dc73a` | failure | Test TS=OK, Test Python=FAIL, Mojibake Check=FAIL |
+
+**Pass rate**: 2/10 passing, 7 failed
+**First full green**: `c0acc6c2` (2026-07-03)
