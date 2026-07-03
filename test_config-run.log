@@ -1,0 +1,16 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.5, pytest-8.3.2, pluggy-1.6.0 -- C:\Users\HP\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\HP\.codex\bridge
+plugins: anyio-4.10.0, dash-3.2.0, jaxtyping-0.2.25, typeguard-2.13.3
+collecting ... collected 7 items
+
+bridge/mcp/tests/test_config.py::test_mcp_api_key_fallback_to_tdai PASSED [ 14%]
+bridge/mcp/tests/test_config.py::test_mcp_api_key_override PASSED        [ 28%]
+bridge/mcp/tests/test_config.py::test_mcp_api_key_empty_loopback PASSED  [ 42%]
+bridge/mcp/tests/test_config.py::test_mcp_api_key_empty_string_explicit PASSED [ 57%]
+bridge/mcp/tests/test_config.py::test_health_api_key_fallback PASSED     [ 71%]
+bridge/mcp/tests/test_config.py::test_health_api_key_explicit PASSED     [ 85%]
+bridge/mcp/tests/test_config.py::test_mcp_server_tdai_env_inheritance PASSED [100%]
+
+============================== 7 passed in 0.11s ==============================
