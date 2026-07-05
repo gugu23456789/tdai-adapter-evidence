@@ -1,0 +1,16 @@
+﻿
+ RUN  v4.1.9 C:/Users/HP/Downloads/TencentDB-Agent-Memory-1.0.0/TencentDB-Agent-Memory-1.0.0
+
+node.exe : No test files found, exiting with code 1
+所在位置 行:1 字符: 1
++ & "D:\Program Files\nodejs/node.exe" "D:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (No test files found, exiting with 
+    code 1:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+filter: sdk/typescript/tests/client.test.ts, sdk/typescript/tests/cos.test.ts
+include: src/**/*.test.ts, __tests__/**/*.test.ts
+exclude:  dist/**, node_modules/**, **/*.e2e.test.ts
+
