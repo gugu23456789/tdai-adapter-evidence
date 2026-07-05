@@ -1,0 +1,122 @@
+﻿
+ RUN  v4.1.9 C:/Users/HP/Downloads/TencentDB-Agent-Memory-1.0.0/TencentDB-Agent-Memory-1.0.0
+
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > health returns gateway status 5ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > addConversation posts to correct endpoint 4ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > searchAtomic posts query 1ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > sets auth header when apiKey provided 1ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > throws TdaiAuthError on 401 2ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > throws TdaiRateLimitError on 429 1ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > throws TdaiValidationError on 400 1ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > throws TdaiNotFoundError on 404 1ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > throws TdaiConnectionError on 503 1ms
+ 鉁?src/core/tdai-http-client.test.ts > TdaiHttpClient > uses env vars for defaults 1ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?interface contract > T1a: can be implemented 4ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?interface contract > T1b: has all required methods 1ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?interface contract > T1c: graceful degradation adapter works 2ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?parameter bounds > T2a: recall with empty query returns empty context 1ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?parameter bounds > T2b: recall without limit uses default 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?parameter bounds > T2c: capture empty strings does not crash 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?parameter bounds > T2d: capture with default sessionId 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?parameter bounds > T2e: search with empty query returns empty 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?parameter bounds > T2f: search with special characters does not crash 1ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?parameter bounds > T2g: negative limit clamped gracefully 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?lifecycle > T3a: shutdown marks unavailable 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?lifecycle > T3b: reinitialize after shutdown 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?concurrency > T4a: multiple recall calls succeed 2ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?concurrency > T4b: interleaved recall and capture 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?return types > T5a: recall returns structured context 1ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?return types > T5b: capture returns boolean 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?return types > T5c: search returns array of records 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?return types > T5d: initialize returns boolean 0ms
+ 鉁?src/core/memory-adapter.test.ts > MemoryAdapter 鈥?return types > T5e: isAvailable returns boolean 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > vllm strategy > injects chat_template_kwargs.enable_thinking=false into chat bodies 36ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > vllm strategy > merges into an existing chat_template_kwargs instead of clobbering it 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > vllm strategy > leaves embedding requests (input, no messages) untouched 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > deepseek strategy > injects top-level enable_thinking: false 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > dashscope strategy > injects top-level enable_thinking: false 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > openai strategy > injects reasoning_effort: low 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > anthropic strategy > injects thinking: { type: disabled } 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > kimi strategy > injects thinking: { type: disabled } 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > gemini strategy > injects thinking_config: { thinking_budget: 0 } 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > false strategy > returns globalThis.fetch directly 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > false strategy > default parameter returns globalThis.fetch 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > common behavior > forwards a non-JSON string body unchanged 1ms
+ 鉁?src/utils/no-think-fetch.test.ts > createNoThinkFetch > common behavior > forwards requests with no init and with a non-string body unchanged 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > isValidDisableThinkingStrategy > returns true for all valid strategies 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > isValidDisableThinkingStrategy > returns false for invalid values 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > normalizeDisableThinking > maps true to vllm (shorthand) 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > normalizeDisableThinking > maps false to false 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > normalizeDisableThinking > maps undefined to false 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > normalizeDisableThinking > passes through valid strategy strings 0ms
+ 鉁?src/utils/no-think-fetch.test.ts > normalizeDisableThinking > warns and returns false for unknown strategies 2ms
+ 鉁?src/core/gates/gate-circuit-breaker.test.ts > CircuitBreakerGate > trips open after threshold consecutive failures 6ms
+ 鉁?src/core/gates/gate-circuit-breaker.test.ts > CircuitBreakerGate > blocks calls while open 2ms
+ 鉁?src/core/gates/gate-circuit-breaker.test.ts > CircuitBreakerGate > resets to closed after timer expires 3ms
+ 鉁?src/core/gates/gate-circuit-breaker.test.ts > CircuitBreakerGate > escalates cooldown on rapid reset-open cycles 2ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > defaults to system timezone when no config 35ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > resolves "system" to process timezone 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts valid IANA timezone names 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts Europe/London (DST-aware timezone) 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts America/New_York 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts UTC 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts UTC offset string +08:00 0ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts UTC offset string -05:00 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts half-hour offset +05:30 (India) 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts +09:30 (Australia/Darwin equivalent) 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > accepts +00:00 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > falls back to system timezone for invalid string 1ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > falls back to system timezone for empty string 0ms
+ 鉁?src/utils/time.test.ts > time module > initTimeModule / resolveTimeZone > falls back for garbage input 0ms
+ 鉁?src/utils/time.test.ts > time module > _resetTimeModuleForTest > resets timezone back to UTC 1ms
+ 鉁?src/utils/time.test.ts > time module > nowInstantISO > returns ISO 8601 string with Z suffix 1ms
+ 鉁?src/utils/time.test.ts > time module > nowInstantISO > is not affected by timezone configuration 1ms
+ 鉁?src/utils/time.test.ts > time module > formatLocalDate > formats as YYYY-MM-DD in configured timezone 2ms
+ 鉁?src/utils/time.test.ts > time module > formatLocalDate > respects timezone 鈥?same instant, different local date 1ms
+ 鉁?src/utils/time.test.ts > time module > formatLocalDate > handles DST transition (Europe/London BST) 1ms
+ 鉁?src/utils/time.test.ts > time module > formatLocalDate > uses offset string +05:30 correctly 0ms
+ 鉁?src/utils/time.test.ts > time module > formatLocalDateTime > formats as YYYY-MM-DD HH:mm:ss 1ms
+ 鉁?src/utils/time.test.ts > time module > formatLocalDateTime > handles midnight correctly 0ms
+ 鉁?src/utils/time.test.ts > time module > formatLocalDateTime > handles end of day 0ms
+ 鉁?src/utils/time.test.ts > time module > startOfLocalDay > returns midnight UTC ms for configured timezone 1ms
+ 鉁?src/utils/time.test.ts > time module > startOfLocalDay > works for UTC 1ms
+ 鉁?src/utils/time.test.ts > time module > startOfLocalDay > works for negative offset timezone 1ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > formats Date with timezone offset 1ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > formats ISO string input (Z suffix) 2ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > formats Unix millisecond timestamp 1ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > handles negative offset (America/New_York winter) 2ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > handles DST (America/New_York summer) 1ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > handles half-hour offset +05:30 1ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > passes through invalid/unparseable input 1ms
+ 鉁?src/utils/time.test.ts > time module > formatForLLM > handles old UTC data correctly (backward compat) 1ms
+ 鉁?src/utils/time.test.ts > time module > describeTimeZoneForPrompt > includes timezone name and offset 1ms
+ 鉁?src/utils/time.test.ts > time module > describeTimeZoneForPrompt > includes timezone for UTC 1ms
+ 鉁?src/utils/time.test.ts > time module > describeTimeZoneForPrompt > works with offset string config 1ms
+ 鉁?src/core/gates/gate-rate-limit.test.ts > RateLimitGate > allows calls under the limit 5ms
+ 鉁?src/core/gates/gate-rate-limit.test.ts > RateLimitGate > blocks calls over the limit 1ms
+ 鉁?src/core/gates/gate-rate-limit.test.ts > RateLimitGate > self-fallback after N consecutive failures 1ms
+ 鉁?src/core/gates/gate-rate-limit.test.ts > RateLimitGate > recovers from self-fallback after duration expires 1ms
+ 鉁?src/utils/sanitize.test.ts > prompt injection filtering > detects common prompt-injection payloads 4ms
+ 鉁?src/utils/sanitize.test.ts > prompt injection filtering > rejects prompt-injection payloads from L1 extraction 1ms
+ 鉁?src/utils/sanitize.test.ts > prompt injection filtering > keeps L0 capture permissive for raw conversation archival 0ms
+ 鉁?src/utils/sanitize.test.ts > prompt injection filtering > allows normal user content through L1 extraction 1ms
+ 鉁?src/core/gates/gate-audit.test.ts > AuditGate > records entries on afterCall 4ms
+ 鉁?src/core/gates/gate-audit.test.ts > AuditGate > drops oldest entry when buffer is full 1ms
+ 鉁?src/core/gates/gate-audit.test.ts > AuditGate > flushes buffer to console exporter 1ms
+ 鉁?src/core/gates/gate-audit.test.ts > AuditGate > tracks drop count under load 1ms
+ 鉁?src/core/gates/gate-redteam.test.ts > RateLimitGate - red-team > recovers after rate-limit window expires 5ms
+ 鉁?src/core/gates/gate-redteam.test.ts > RateLimitGate - red-team > self-fallback allows calls then recovers after reset 1ms
+ 鉁?src/core/gates/gate-redteam.test.ts > CircuitBreakerGate - red-team > cooldown doubles when breaker re-opens repeatedly 1ms
+ 鉁?src/core/gates/gate-redteam.test.ts > CircuitBreakerGate - red-team > recovers after cooldown - beforeCall no longer throws 1ms
+ 鉁?src/core/gates/gate-redteam.test.ts > Gate - parallel calls > RateLimitGate handles concurrent beforeCall 1ms
+ 鉁?src/core/gates/gate-redteam.test.ts > Gate - parallel calls > CircuitBreakerGate handles concurrent beforeCall 1ms
+ 鉁?src/core/gates/gate-redteam.test.ts > Gate - parallel calls > AuditGate handles concurrent afterCall 1ms
+ 鉁?src/core/gates/gate-redteam.test.ts > RateLimitGate - boundary values > windowMs=0 never rate-limits (bucket stays empty) 0ms
+ 鉁?src/core/gates/gate-redteam.test.ts > RateLimitGate - boundary values > maxCalls=0 rate-limits every call 0ms
+ 鉁?src/core/gates/gate-redteam.test.ts > RateLimitGate - boundary values > selfFallbackThreshold=0 disables self-fallback 0ms
+
+ Test Files  9 passed (9)
+      Tests  113 passed (113)
+   Start at  08:49:26
+   Duration  862ms (transform 1.01s, setup 0ms, import 1.38s, tests 222ms, environment 2ms)
+
