@@ -1,0 +1,17 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.5, pytest-8.3.2, pluggy-1.6.0 -- C:\Users\HP\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\HP\Downloads\TencentDB-Agent-Memory-1.0.0\TencentDB-Agent-Memory-1.0.0
+plugins: anyio-4.10.0, dash-3.2.0, jaxtyping-0.2.25, typeguard-2.13.3
+collecting ... collected 8 items
+
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_initialize PASSED      [ 12%]
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_tools_list PASSED      [ 25%]
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_tdai_health PASSED     [ 37%]
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_tdai_recall PASSED     [ 50%]
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_tdai_capture PASSED    [ 62%]
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_gate_unknown_tool PASSED [ 75%]
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_invalid_json_rpc_validation PASSED [ 87%]
+bridge/mcp/tests/test_e2e.py::TestBridgeE2E::test_gate_api_key_rejects_when_configured PASSED [100%]
+
+============================== 8 passed in 7.90s ==============================
